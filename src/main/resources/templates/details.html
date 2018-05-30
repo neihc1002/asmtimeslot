@@ -1,0 +1,63 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<div></div>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <main class="col-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-left">
+                        <h3>Student</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Time Slot</th>
+                            <th>Subject</th>
+                            <th>Class ID</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr th:each="student : ${pagination.getContent()}">
+                            <td th:text="${student.student.name}"></td>
+                                <a class="btn-link mr-2" th:case= "1" href="#">View</a>
+                                <a class="btn-link"  th:case= "0" href="#">Take</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer" th:if="${pagination.getTotalPages() > 1}">
+                    <nav class="float-right">
+                        <ul class="pagination">
+                            <li class="page-item" th:if="${page>1}">
+                                <a class="page-link" th:href="@{/timeslot(page=${page}-1, limit=${limit})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:if="${page>1}">
+                                <a class="page-link" th:href="@{/timeslot(page=${page}-1, limit=${limit})}" th:text="${page}-1"></a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#" th:text="${page}"></a></li>
+                            <li class="page-item" th:if="${page<pagination.getTotalPages()}">
+                                <a class="page-link" th:href="@{/timeslot(page=${page}+1, limit=${limit})}" th:text="${page}+1"></a>
+                            </li>
+                            <li class="page-item" th:if="${page<pagination.getTotalPages()}">
+                                <a class="page-link" th:href="@{/timeslot(page=${page}+1, limit=${limit})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
